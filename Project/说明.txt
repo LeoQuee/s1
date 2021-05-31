@@ -1,0 +1,4 @@
+【MDK-ARM】KEIL的MDK工程文件，uVision5版本。
+
+output(mdk).hex - 采用KEIL MDK编译好的目标文件(定位在CPU内部Flash执行)
+

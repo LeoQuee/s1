@@ -1,0 +1,1 @@
+copy ZK1_0\output.hex ..\ZK1_0.hex
