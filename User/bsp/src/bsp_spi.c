@@ -1,3 +1,12 @@
+/**
+  ******************************************************************************
+  * @file    bsp_spi.c
+  * @author  lik
+  * @date    2021-7-8
+  * @brief   
+  ******************************************************************************
+  */ 
+
 #include "bsp_spi.h"
 
 void spi2_init(void)
@@ -5,7 +14,7 @@ void spi2_init(void)
     GPIO_InitTypeDef GPIO_InitStructure;
     SPI_InitTypeDef  SPI_InitStructure;
     
-#ifdef PCB_V3
+#if (defined PCB_V3) || (defined PCB_V4)
     RCC_APB1PeriphClockCmd(RCC_APB1Periph_SPI2, ENABLE);
     RCC_APB2PeriphClockCmd(SPI2_RCC, ENABLE);
     

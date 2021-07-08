@@ -1,17 +1,29 @@
+/**
+  ******************************************************************************
+  * @file    bsp_dac.c
+  * @author  lik
+  * @date    2021-7-8
+  * @brief   
+  ******************************************************************************
+  */ 
+
 #include "bsp_dac.h"
 #include "bsp_data_interface.h"
 #include "bsp_w25q128.h"
 #include "bsp_oled.h"
 
-#ifdef PCB_V3
+#if (defined PCB_V3) || (defined PCB_V4)
 
 #define DAC_DHR8R1_Address      0x40007410
+
+#define MUSIC_ON    1
+#define MUSIC_OFF   0
 
 static int cnt = 0;
 static int flag = 0;
 static int id = 0;
 static uint8_t s_dac_volume = 16;
-static uint8_t s_music_on = 0;
+static uint8_t s_music_on = MUSIC_OFF;
 
 /**
   * @brief DAC初始化
@@ -107,7 +119,7 @@ void bsp_dac_open(uint8_t _id)
   */
 void bsp_dac_volume_inc(void)
 {
-    s_music_on = 1;
+    s_music_on = MUSIC_ON;
     
     if(s_dac_volume < 16)
     {
@@ -126,7 +138,7 @@ void bsp_dac_volume_inc(void)
   */
 void bsp_dac_volume_dec(void)
 {
-    s_music_on = 0;
+    s_music_on = MUSIC_OFF;
     
     if(s_dac_volume > 0)
     {
@@ -155,9 +167,9 @@ void TIM6_IRQHandler(void)
         
         if(data == 0xFFFF)
         {
-            if((id == 1 && s_music_on == 1) || id == 4) // 测量开始提示语音结束后，继续播放音乐
+            if((id == DAC_ID_TEST_START && s_music_on == MUSIC_ON) || id == DAC_ID_MUSIC) // 测量开始提示语音结束后，继续播放音乐
             {
-                id = 4;
+                id = DAC_ID_MUSIC;
                 cnt = 0;
             }
             else

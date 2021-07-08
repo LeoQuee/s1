@@ -1,3 +1,12 @@
+/**
+  ******************************************************************************
+  * @file    protocol_task.c
+  * @author  lik
+  * @date    2021-7-8
+  * @brief   
+  ******************************************************************************
+  */
+
 #include "bsp.h"
 #include "protocol_task.h"
 #include "protocol.h"
@@ -35,7 +44,7 @@ static void START_ADJUST_Handler(unsigned char data_len, unsigned char data[])
     AFE4300_WORK_STATE state = GetAfe4300State();
     if(AFE_STATE_INIT == state)
     {
-        bsp_dac_open(2);
+        bsp_dac_open(DAC_ID_ADJUST_START);
         
         SetAfe4300State(AFE_STATE_ADJUST);
         
@@ -186,7 +195,7 @@ static void SF_Stop(unsigned char data_len, unsigned char data[])
   */
 static void SF_Write_Param(unsigned char data_len, unsigned char data[])
 {
-    SysParam param = {100.0f, 200.0f, 300.0f, 2020, 9, 16};
+    SysParam param = {100.0f, 200.0f, 300.0f, 2021, 1, 1};
     SysParam *p = (SysParam *)data;
     SYSFLAG s;
     
@@ -218,7 +227,7 @@ static void SF_Write_Param(unsigned char data_len, unsigned char data[])
   */
 static void SF_Read_Param(unsigned char data_len, unsigned char data[])
 {
-    SysParam param = {100.0f, 200.0f, 300.0f, 2020, 9, 16};
+    SysParam param = {100.0f, 200.0f, 300.0f, 2021, 1, 1};
     SYSFLAG s;
     
     sysflag_read(&s);
@@ -275,7 +284,7 @@ static void SF_Read_SN(unsigned char data_len, unsigned char data[])
 /**
   * @brief 写入提示语音
   * @param data_len
-  * @param data
+  * @param data 音频数据，格式 [4]地址 + [...]数据
   */
 static void SF_Write_Sound(unsigned char data_len, unsigned char data[])
 {

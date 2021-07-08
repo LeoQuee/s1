@@ -1,7 +1,16 @@
+/**
+  ******************************************************************************
+  * @file    bsp_w25q128.c
+  * @author  lik
+  * @date    2021-7-8
+  * @brief   
+  ******************************************************************************
+  */ 
+
 #include "bsp_w25q128.h"
 #include "bsp_spi.h"
 
-#ifdef PCB_V3
+#if (defined PCB_V3) || (defined PCB_V4)
 
 #define W25X_WriteEnable        0x06
 #define W25X_ReadSR1            0x05

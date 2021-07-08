@@ -1,10 +1,12 @@
-/*
- * @Description:  串口中断+FIFO驱动模块
- * @Author: Gaven
- * @Date: 2019-10-21 10:34:45
- * @LastEditTime: 2019-10-24 16:48:21
- * @LastEditors: Gaven
- */
+/**
+  ******************************************************************************
+  * @file    bsp_uart_fifo.h
+  * @author  lik
+  * @date    2021-7-8
+  * @brief   串口中断+FIFO驱动模块
+  ******************************************************************************
+  */  
+ 
 #ifndef _BSP_USART_FIFO_H_
 #define _BSP_USART_FIFO_H_
 

@@ -1,10 +1,12 @@
-/*
- * @Description:  全局通用的头文件
- * @Author: Gaven
- * @Date: 2019-10-22 10:34:00
- * @LastEditTime: 2019-11-20 10:09:48
- * @LastEditors: Please set LastEditors
- */
+/**
+  ******************************************************************************
+  * @file    globle.h
+  * @author  lik
+  * @date    2021-7-8
+  * @brief   全局通用的头文件
+  ******************************************************************************
+  */
+ 
 #ifndef _GLOBLE_H_
 #define _GLOBLE_H_
 

@@ -1,15 +1,16 @@
-/*
- * @Description:  afe4300 硬件初始化模块
- * @Author: Gaven
- * @Date: 2019-10-21 17:46:56
- * @LastEditTime: 2019-10-30 14:31:07
- * @LastEditors: Gaven
- */
+/**
+  ******************************************************************************
+  * @file    bsp_afe4300_spi.c
+  * @author  lik
+  * @date    2021-7-8
+  * @brief   afe4300 硬件初始化模块
+  ******************************************************************************
+  */  
  
 #include "bsp_afe4300_spi.h"
 #include "bsp.h"
 
-#ifdef PCB_V3  
+#if (defined PCB_V3) || (defined PCB_V4)  
 #define SPI_AFE4300 SPI3
 #else
 #define SPI_AFE4300 SPI1
@@ -25,7 +26,7 @@ static void bsp_AfeHardInit(void)
     TIM_TimeBaseInitTypeDef TIM_TimeBaseStructure;
     TIM_OCInitTypeDef TIM_OCInitStructure;
     
-#ifdef PCB_V3
+#if (defined PCB_V3) || (defined PCB_V4)
     RCC_APB1PeriphClockCmd(RCC_APB1Periph_SPI3, ENABLE);
     RCC_APB2PeriphClockCmd(SPI3_RCC, ENABLE);
     
@@ -63,7 +64,7 @@ static void bsp_AfeHardInit(void)
     GPIO_InitStructure.GPIO_Mode  = GPIO_Mode_IN_FLOATING;
     GPIO_Init(AFE4300_RDY_PORT, &GPIO_InitStructure);
     
-#ifdef PCB_V3
+#if (defined PCB_V3) || (defined PCB_V4)
     //PA15---SPI3 NSS---STE_N
     GPIO_InitStructure.GPIO_Pin   = SPI3_NSS_PIN;
     GPIO_InitStructure.GPIO_Mode  = GPIO_Mode_Out_PP;
@@ -150,7 +151,7 @@ static void bsp_AfeHardInit(void)
     TIM_OCInitStructure.TIM_OutputState= TIM_OutputState_Enable;
     //TIM_Pulse的值不可大于TIM_Period
     TIM_OCInitStructure.TIM_Pulse      =9;
-#ifdef PCB_V3    
+#if (defined PCB_V3) || (defined PCB_V4)    
     TIM_OC4Init(AFE4300_CLK_TIM, &TIM_OCInitStructure);
 #else
     TIM_OC2Init(AFE4300_CLK_TIM, &TIM_OCInitStructure);
@@ -206,12 +207,12 @@ void bsp_SetAfeTIMClk(uint16_t tim_Period, uint16_t tim_Prescaler)
     TIM_TimeBaseStructure.TIM_RepetitionCounter = 0x00;   //配置TIM1-8
     TIM_TimeBaseInit(AFE4300_CLK_TIM, &TIM_TimeBaseStructure);
     
-    TIM_OCInitStructure.TIM_OCMode=TIM_OCMode_PWM2;
-    TIM_OCInitStructure.TIM_OCPolarity=TIM_OCPolarity_High;
-    TIM_OCInitStructure.TIM_OutputState=TIM_OutputState_Enable;
+    TIM_OCInitStructure.TIM_OCMode      = TIM_OCMode_PWM2;
+    TIM_OCInitStructure.TIM_OCPolarity  = TIM_OCPolarity_High;
+    TIM_OCInitStructure.TIM_OutputState = TIM_OutputState_Enable;
     //TIM_Pulse的值不可大于TIM_Period
-    TIM_OCInitStructure.TIM_Pulse = (tim_Period+1)/2;      // 设置占空比，对应每个周期低电平持续时长
-#ifdef PCB_V3
+    TIM_OCInitStructure.TIM_Pulse       = (tim_Period+1)/2;      // 设置占空比，对应每个周期低电平持续时长
+#if (defined PCB_V3) || (defined PCB_V4)
     TIM_OC4Init(AFE4300_CLK_TIM, &TIM_OCInitStructure);
 #else    
     TIM_OC2Init(AFE4300_CLK_TIM, &TIM_OCInitStructure);

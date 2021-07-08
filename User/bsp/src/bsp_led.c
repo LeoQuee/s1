@@ -1,3 +1,12 @@
+/**
+  ******************************************************************************
+  * @file    bsp_led.c
+  * @author  lik
+  * @date    2021-7-8
+  * @brief   
+  ******************************************************************************
+  */  
+
 #include "bsp.h"
 
 /**
@@ -9,7 +18,7 @@ void led_init(void)
     
     _PRINT("led_init()\r\n");
     
-#ifdef PCB_V3
+#if (defined PCB_V3) || (defined PCB_V4)
     RCC_APB2PeriphClockCmd(LED_RCC, ENABLE);
     
     GPIO_InitStructure.GPIO_Pin = LED_RED_PIN;

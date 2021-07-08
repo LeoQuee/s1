@@ -1,10 +1,11 @@
-/*
- * @Description:  AFE4300 主要功能实现头文件
- * @Author: Gaven
- * @Date: 2019-10-21 18:12:14
- * @LastEditTime: 2019-11-19 14:21:52
- * @LastEditors: Please set LastEditors
- */
+/**
+  ******************************************************************************
+  * @file    afeStateMachine.h
+  * @author  lik
+  * @date    2021-7-8
+  * @brief   AFE4300 主要功能实现头文件
+  ******************************************************************************
+  */
  
 #ifndef __AFE_STATEMACHINE_H_
 #define __AFE_STATEMACHINE_H_
@@ -20,10 +21,8 @@ typedef enum {
     RESISTANCE1 = 0,        //校准电阻1
     RESISTANCE2 = 1,        //校准电阻2
     RESISTANCE3 = 2,        //校准电阻3
-    BODY_POSITION_L1,      // Left 1
-    BODY_POSITION_L2,      // Left 2
-    BODY_POSITION_R1,      // Right 1
-    BODY_POSITION_R2,      // Right 2
+    BODY_POSITION_L,      // 左手
+    BODY_POSITION_R,      // 右手
 } AFE4300_POSITION;
 
 /**
@@ -32,6 +31,7 @@ typedef enum {
 typedef struct
 {
     AFE4300_POSITION channelPosition;  /*!< 测量部位 */
+    uint8_t  point_id;
     uint16_t isw_mux;        /*!< 激励通道 */
     uint16_t vsense_mux;     /*!< 测量通道 */
 } CHANNEL_CONFIG;

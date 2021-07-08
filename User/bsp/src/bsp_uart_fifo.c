@@ -1,10 +1,11 @@
-/*
- * @Description:  采用串口中断+FIFO模式实现多个串口的同时访问
- * @Author: Gaven
- * @Date: 2019-10-21 17:46:56
- * @LastEditTime: 2019-11-20 14:06:51
- * @LastEditors: Please set LastEditors
- */
+/**
+  ******************************************************************************
+  * @file    bsp_uart_fifo.c
+  * @author  lik
+  * @date    2021-7-8
+  * @brief   采用串口中断+FIFO模式实现多个串口的同时访问
+  ******************************************************************************
+  */ 
  
 #include "bsp.h"
 #include "Platformdef.h"

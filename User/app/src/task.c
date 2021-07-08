@@ -1,10 +1,11 @@
-/*
- * @Description:  任务函数文件
- * @Author: Gaven
- * @Date: 2019-10-21 16:14:16
- * @LastEditTime: 2019-11-20 14:08:52
- * @LastEditors: Please set LastEditors
- */
+/**
+  ******************************************************************************
+  * @file    task.c
+  * @author  lik
+  * @date    2021-7-8
+  * @brief   任务函数文件
+  ******************************************************************************
+  */
 
 #include "task.h"
 
@@ -16,35 +17,39 @@
 
 #include "bsp_dac.h"
 #include "bsp_oled.h"
+#include "bsp_w25q128.h"
+
+#define ALARM_OFF   0
+#define ALARM_ON    1
 
 int8_t g_PcHeartBeatCount = 0;      /*!< 上位机心跳计数 */
-static int8_t s_IsAlarmed = 0;      /*!< 当前是否为报警状态，0-否 1-是 */
+static int8_t s_IsAlarmed = ALARM_OFF;      /*!< 当前是否为报警状态，0-否 1-是 */
 
 /**
   * @brief 软件定时器处理过程
   */
 static void ProcessSoftTimer(void)
 {
-    if(bsp_CheckTimer(TMR1_COMPLATFORM, 1))
+    if(bsp_CheckTimer(TMR1_COMPLATFORM, TMR_NOT_NEEDSTOP))
     {
         ComDataProcess(&CommToPc);
     }
     
-    if(bsp_CheckTimer(TMR3_SND_M3_HAERT, 1))
+    if(bsp_CheckTimer(TMR3_SND_M3_HAERT, TMR_NOT_NEEDSTOP))
     {
         // 向上位机发送心跳数据
         PackMessage(&CommToPc.m_AppCtrl.m_TxMsgBuffCtrl, SND_NOT_EXEC_HEART_BEAT, EProtocolType_Notice, 0, NULL);
     }
     
-    if(bsp_CheckTimer(TMR2_PC_HEART_BEAT, 1))
+    if(bsp_CheckTimer(TMR2_PC_HEART_BEAT, TMR_NOT_NEEDSTOP))
     {
         if(g_PcHeartBeatCount >= 3)
         {
             g_PcHeartBeatCount = 0;
 
-            if(s_IsAlarmed == 1)
+            if(s_IsAlarmed == ALARM_ON)
             {
-                s_IsAlarmed = 0;
+                s_IsAlarmed = ALARM_OFF;
                 
                 //_PRINT("pc heart recover!\r\n");
                 bsp_SetLedStatus(LED_YELLOW, LED_OFF);
@@ -52,9 +57,9 @@ static void ProcessSoftTimer(void)
         }
         else
         {
-            if(s_IsAlarmed == 0)
+            if(s_IsAlarmed == ALARM_OFF)
             {
-                s_IsAlarmed = 1;
+                s_IsAlarmed = ALARM_ON;
                 
                 //_PRINT("pc heart lose!\r\n");
                 bsp_SetLedStatus(LED_YELLOW, LED_BLINK);
@@ -62,7 +67,7 @@ static void ProcessSoftTimer(void)
         }
     }
     
-    if(bsp_CheckTimer(TMR4_ALARM_LED, 1))
+    if(bsp_CheckTimer(TMR4_ALARM_LED, TMR_NOT_NEEDSTOP))
     {
         static uint8_t s_flag = 0;
         
@@ -131,7 +136,7 @@ static void ProcessSoftTimer(void)
         
     }
 #ifdef _USART_PRINT_DEBUG_    
-//    if(bsp_CheckTimer(TMR6_ADJUST_TEST, 1))
+//    if(bsp_CheckTimer(TMR6_ADJUST_TEST, TMR_NOT_NEEDSTOP))
 //    {
 
 //        _PRINT("--TIMER TASK: ADJUST TEST--\r\n");
@@ -239,7 +244,7 @@ static void ProcessAfeStateMonitor(void)
 		curState = AFE4300_StartAdjust();
 		if(AFE_SUCCESS == curState)
 		{
-            bsp_dac_open(3);
+            bsp_dac_open(DAC_ID_ADJUST_OVER);
             
 			_PRINT("\r\nadjust over!");
             
@@ -257,7 +262,7 @@ static void ProcessAfeStateMonitor(void)
 		if(AFE_SUCCESS == curState)
 		{
             // 控制提示音
-            bsp_dac_open(0);
+            bsp_dac_open(DAC_ID_TEST_OVER);
             
             // 控制指示灯
             bsp_SetLedStatus(LED_RED, LED_OFF);

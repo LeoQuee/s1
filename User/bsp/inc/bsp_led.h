@@ -1,9 +1,18 @@
+/**
+  ******************************************************************************
+  * @file    bsp_led.h
+  * @author  lik
+  * @date    2021-7-8
+  * @brief   
+  ******************************************************************************
+  */  
+
 #ifndef _BSP_LED_H_
 #define _BSP_LED_H_
 
 #include "global_config.h"
 
-#ifdef PCB_V3
+#if (defined PCB_V3) || (defined PCB_V4)
 #define LED_RED_OFF()       GPIO_ResetBits(LED_RED_PORT, LED_RED_PIN)
 #define LED_RED_ON()        GPIO_SetBits(LED_RED_PORT, LED_RED_PIN)
 #define LED_YELLOW_OFF()    GPIO_ResetBits(LED_YELLOW_PORT, LED_YELLOW_PIN)

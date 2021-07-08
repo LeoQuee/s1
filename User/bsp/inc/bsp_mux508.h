@@ -1,3 +1,12 @@
+/**
+  ******************************************************************************
+  * @file    bsp_mux508.h
+  * @author  lik
+  * @date    2021-7-8
+  * @brief   
+  ******************************************************************************
+  */  
+
 #ifndef _BSP_MUX508_H_
 #define _BSP_MUX508_H_
 
@@ -42,5 +51,8 @@ typedef enum
 
 void mux508_init(void); /*!< 多路开关初始化 */
 void mux508_set(RECT_LATTICE point);    /*!< 设置多路开关 */
+
+void ADG708_init(void); /*!< 多路开关初始化 */
+void ADG708_set(RECT_LATTICE point);    /*!< 设置多路开关 */
 
 #endif

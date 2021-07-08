@@ -1,12 +1,14 @@
-/*
- * @Description:  这是硬件底层驱动程序模块的主文件。主要提供 bsp_Init()函数供主程序调用。主程序的每个c文件可以在开
- *			        头添加 #include "bsp.h" 来包含所有的外设驱动模块。
- * @Author: Gaven
- * @Date: 2019-10-21 10:34:45
- * @LastEditTime: 2019-10-30 08:48:01
- * @LastEditors: Gaven
- */
- 
+/**
+  ******************************************************************************
+  * @file    bsp.c
+  * @author  lik
+  * @date    2021-7-8
+  * @brief   这是硬件底层驱动程序模块的主文件。主要提供 bsp_Init()函数供主程序调用。
+  *          主程序的每个c文件可以在开头添加 #include "bsp.h" 来包含所有的外设驱动模
+  *          块。
+  ******************************************************************************
+  */
+  
 #include "bsp.h"
 #include "bsp_oled.h"
     
@@ -28,7 +30,7 @@ void bsp_Init(void)
     i2c_init();
     bsp_DelayMS(200);
     
-#ifdef PCB_V3    
+#if (defined PCB_V3) || (defined PCB_V4)    
     W25QXX_init();
     bsp_dac_init();
 #endif

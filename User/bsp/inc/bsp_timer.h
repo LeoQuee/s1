@@ -1,10 +1,12 @@
-/*
- * @Description:  定时器模块
- * @Author: Gaven
- * @Date: 2019-10-21 10:34:45
- * @LastEditTime: 2019-11-20 10:22:09
- * @LastEditors: Please set LastEditors
- */
+/**
+  ******************************************************************************
+  * @file    bsp_timer.h
+  * @author  lik
+  * @date    2021-7-8
+  * @brief   定时器模块
+  ******************************************************************************
+  */ 
+ 
 #ifndef __BSP_TIMER_H
 #define __BSP_TIMER_H
 
@@ -37,6 +39,12 @@ typedef enum
 	TMR_ONCE_MODE = 0,		/*!< 一次工作模式 */
 	TMR_AUTO_MODE = 1		/*!< 自动定时工作模式 */
 }TMR_MODE_E;
+
+#define TMR_TIMEOUT         1
+#define TMR_NOT_TIMEOUT     0
+
+#define TMR_NEEDSTOP        0
+#define TMR_NOT_NEEDSTOP    1
 
 /**
   * @breif 定时器结构体，成员变量必须是 volatile, 否则C编译器优化时可能有问题

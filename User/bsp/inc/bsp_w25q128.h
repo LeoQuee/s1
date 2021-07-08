@@ -1,9 +1,18 @@
+/**
+  ******************************************************************************
+  * @file    bsp_w25q128.h
+  * @author  lik
+  * @date    2021-7-8
+  * @brief   
+  ******************************************************************************
+  */ 
+
 #ifndef _BSP_W25Q128_H_
 #define _BSP_W25Q128_H_
 
 #include "global_config.h"
 
-#ifdef PCB_V3
+#if (defined PCB_V3) || (defined PCB_V4)
 
 #define W25QXX_SIZE     0x1000000 // 16M×Ö½Ú
 

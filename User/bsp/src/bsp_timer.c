@@ -1,13 +1,14 @@
-/*
- * @Description:  配置systick定时器作为系统滴答定时器。缺省定时周期为1ms。
- *                  实现了多个软件定时器供主程序使用(精度1ms)， 可以通过修改 TMR_COUNT 增减定时器个数;
- *                  实现了ms级别延迟函数（精度1ms） 和us级延迟函数;
- *                  实现了系统运行时间函数（1ms单位）bsp_GetRunTime;
- * @Author: Gaven
- * @Date: 2019-10-21 17:46:56
- * @LastEditTime: 2019-11-20 10:22:21
- * @LastEditors: Please set LastEditors
- */
+/**
+  ******************************************************************************
+  * @file    bsp_timer.c
+  * @author  lik
+  * @date    2021-7-8
+  * @brief   配置systick定时器作为系统滴答定时器。缺省定时周期为1ms。实现了多个软件
+  *          定时器供主程序使用(精度1ms)， 可以通过修改 TMR_COUNT 增减定时器个数;
+  *          实现了ms级别延迟函数（精度1ms） 和us级延迟函数;
+  *          实现了系统运行时间函数（1ms单位）bsp_GetRunTime;
+  ******************************************************************************
+  */ 
 
 #include "bsp.h"
 
@@ -142,7 +143,7 @@ void bsp_DelayMS(uint32_t n)
     {
         bsp_Idle();				/* CPU空闲执行的操作， 见 bsp.c 和 bsp.h 文件 */
 
-        if (bsp_CheckTimer(TMR0_DELAY, 1))
+        if (bsp_CheckTimer(TMR0_DELAY, TMR_NOT_NEEDSTOP))
         {
             break;
         }
@@ -267,11 +268,11 @@ uint8_t bsp_CheckTimer(uint8_t _id, uint8_t isNeedStopFlag)
         {
             s_tTmr[_id].Flag = 0;
         }
-        return 1;
+        return TMR_TIMEOUT;
     }
     else
     {
-        return 0;
+        return TMR_NOT_TIMEOUT;
     }
 }
 

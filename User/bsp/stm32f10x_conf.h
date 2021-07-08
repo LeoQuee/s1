@@ -1,12 +1,15 @@
-/*
- * @Description:  这是ST固件库提供的文件。用户可以根据需要包含ST固件库的外设模块。为了方便我们包含了所有固件库模块。
- * 					这个文件被 Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x\stm32f10x.h 包含，因此
- * 					我们在.c文件中只需要 include "stm32f10x.h"即可，不必单独再include stm32f10x_conf.h文件
- * @Author: Gaven
- * @Date: 2019-10-21 10:34:45
- * @LastEditTime: 2019-10-24 16:57:43
- * @LastEditors: Gaven
- */
+/**
+  ******************************************************************************
+  * @file    stm32f10x_conf.h
+  * @author  lik
+  * @date    2021-7-8
+  * @brief   这是ST固件库提供的文件。用户可以根据需要包含ST固件库的外设模块。为了方便
+  *          我们包含了所有固件库模块。这个文件被 Libraries\CMSIS\CM3\
+  *          DeviceSupport\ST\STM32F10x\stm32f10x.h 包含，因此我们在.c文件中只需要
+  *           include "stm32f10x.h"即可，不必单独再include stm32f10x_conf.h文件
+  ******************************************************************************
+  */ 
+ 
 #ifndef __STM32F10x_CONF_H
 #define __STM32F10x_CONF_H
 

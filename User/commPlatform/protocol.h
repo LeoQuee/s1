@@ -79,58 +79,6 @@ typedef struct
 } SysParam;
 
 /**
-  * @brief ²âÁ¿µã
-  */
-typedef enum
-{
-    POINT_LEFT_START,
-    POINT_TP1           = POINT_LEFT_START,
-    POINT_TP2,
-    POINT_TP3,
-    POINT_TP4,
-    POINT_TP5,
-    POINT_TP6,
-    POINT_TP7,
-    POINT_TP8,
-    POINT_TP9,
-    POINT_TP10,
-    POINT_TP11,
-    POINT_TP12,
-    POINT_TP13,
-    POINT_TP14,
-    POINT_TP15,
-    POINT_TP16,
-    POINT_TP17,
-    POINT_TP18,
-    POINT_TP19,
-    POINT_TP20,
-    
-    POINT_RIGHT_START,
-    POINT_TP27          = POINT_RIGHT_START,
-    POINT_TP28,
-    POINT_TP29,
-    POINT_TP30,
-    POINT_TP31,
-    POINT_TP32,
-    POINT_TP33,
-    POINT_TP34,
-    POINT_TP35,
-    POINT_TP36,
-    POINT_TP37,
-    POINT_TP38,
-    POINT_TP39,
-    POINT_TP40,
-    POINT_TP41,
-    POINT_TP42,
-    POINT_TP43,
-    POINT_TP44,
-    POINT_TP45,
-    POINT_TP46,
-
-    POINT_END
-}AFE4300_POINT;
-
-/**
   * @brief AFE4300×´Ì¬
   */
 typedef enum 
